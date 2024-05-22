@@ -1,6 +1,9 @@
 
 
-function handleClick(){
-    const foods = axios.get("https://localhost:3000/foods");
-    console.log(foods)
+async function handleClick(){
+    console.log("hello")
+    axios.get("http://localhost:3000/food").then(res=>{
+        const food = res.data
+        console.log(food)
+        });
 }
