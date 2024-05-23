@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-mongoose.connect("mongodb://localhost:27017")
 
 
 const schema = mongoose.Schema({
@@ -7,6 +6,6 @@ const schema = mongoose.Schema({
     email:String,
     password:String
 })
-const studentModel = mongoose.model(user,schema)
+const userModel = mongoose.model('user',schema)
 
-module.exports = studentModel
+module.exports = userModel

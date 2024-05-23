@@ -3,20 +3,23 @@ const router = express.Router();
 const foodModel = require('../models/food.model')
 router.use(express.json())
 router.use(express.urlencoded({extended:true}))
+const protect = require('../middleware/auth')
 
-router.get('/',async (req,res)=>{
-    const food = await foodModel.find({})
+router.get('/',protect,async (req,res)=>{
+    const userId = req.user
+    const food = await foodModel.find({user:userId})
     res.json(food)
 })
-router.post('/',async (req,res)=>{
-    const _id = req.body.id
+
+router.post('/',protect,async (req,res)=>{
+    const userId = req.user
     const {name, calories} = req.body
-    const student = await foodModel.create({
-        _id,
+    const food = await foodModel.create({
+        user:userId,
         name,
         calories
      })
-    res.status(200).json(student)
+    res.status(200).json(food)
 })
 
 module.exports = router
