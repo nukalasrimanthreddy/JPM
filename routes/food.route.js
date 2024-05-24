@@ -21,5 +21,9 @@ router.post('/',protect,async (req,res)=>{
      })
     res.status(200).json(food)
 })
-
+router.delete('/:id',async (req,res)=>{
+    const id = req.params.id
+    const food = await foodModel.findByIdAndDelete(id)
+    res.status(200).json(food)
+})
 module.exports = router
