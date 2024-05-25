@@ -7,13 +7,14 @@ import { AuthContext } from './AuthContext/Auth';
 function RegisterComponent() {
   const { logout } = useContext(AuthContext);
   const [username, setUsername] = useState('');
+  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success'); // Define state for alert variant
 
   const handleSubmit = () => {
-    axios.post('http://localhost:5000/auth/register', { username, email, password })
+    axios.post('http://localhost:5000/auth/register', { username, role, email, password})
       .then(res => {
         setAlertVariant('success'); // Set alert variant to success
         setAlertMessage("Registration Successful");
@@ -42,6 +43,10 @@ function RegisterComponent() {
         <Form.Group controlId="username">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="text" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </Form.Group>
+        <Form.Group controlId="role">
+          <Form.Label>Role:</Form.Label>
+          <Form.Control type="text" placeholder="Enter your role" value={role} onChange={(e) => setRole(e.target.value)} />
         </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email:</Form.Label>

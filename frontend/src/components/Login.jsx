@@ -23,7 +23,8 @@ function LoginComponent() {
     axios.post('http://localhost:5000/auth/login', { email, password })
       .then(res => {
         const { token, user } = res.data;
-        login(token, user.username);
+        console.log(user.role)
+        login(token, user.username, user.role);
         navigate('/dashboard');
       })
       .catch(err => {

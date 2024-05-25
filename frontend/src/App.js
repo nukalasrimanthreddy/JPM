@@ -8,6 +8,7 @@ import DashboardComponent from './components/Dashboard';
 import RegisterComponent from './components/Register'
 import LogoutComponent from './components/Logout';
 import AuthProvider from './components/AuthContext/Auth';
+import AdminDashboard from './components/AdminDashboard';
 function App() {
   return (
     <AuthProvider>
@@ -47,6 +48,7 @@ function App() {
       <Route path='/dashboard' element={<DashboardComponent/>}/>
       <Route path='/register' element={<RegisterComponent/>}/>
       <Route path='/logout' element={<LogoutComponent/>}/>
+      <Route path='/admin' element={<AdminDashboard/>}/>
       </Routes>
     </BrowserRouter>
     </AuthProvider>

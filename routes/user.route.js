@@ -6,9 +6,8 @@ const userModel = require('../models/user.model')
 router.use(express.json())
 router.use(express.urlencoded({extended:true}))
 router.post('/register',async (req,res)=>{
-    const {username,email,password} = req.body
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await userModel.create({ username, email, password: hashedPassword });
+    const {username,role,email,password} = req.body
+    const user = await userModel.create({ username, role, email, password});
     res.status(200).json(user)
 })
 
@@ -17,10 +16,10 @@ router.post('/login',async (req,res)=>{
     const user = await userModel.findOne({email})
     if(!user) return res.status(400).json({message:'User not found'})
     const id = user._id
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await user.matchPassword(password)
     if(!validPassword)
         return res.status(400).json({message:'Invalid password'})
     const token = jwt.sign({id},"cvrcoe")
-    res.json({ token, user: { id: user._id, username: user.username }});
+    res.json({ token, user: { id: user._id, username: user.username, role: user.role }});
 })
 module.exports = router
