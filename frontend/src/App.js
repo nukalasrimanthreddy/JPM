@@ -9,6 +9,8 @@ import RegisterComponent from './components/Register'
 import LogoutComponent from './components/Logout';
 import AuthProvider from './components/AuthContext/Auth';
 import AdminDashboard from './components/AdminDashboard';
+import RequestComponent from './components/Request';
+import AdminRequestComponent from './components/AdminRequest';
 function App() {
   return (
     <AuthProvider>
@@ -31,6 +33,9 @@ function App() {
               <Link className="nav-link" to='/dashboard'>Dashboard</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to='/request/user'>Requests</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to='/logout'>Logout</Link>
             </li>
           </ul>
@@ -49,6 +54,8 @@ function App() {
       <Route path='/register' element={<RegisterComponent/>}/>
       <Route path='/logout' element={<LogoutComponent/>}/>
       <Route path='/admin' element={<AdminDashboard/>}/>
+      <Route path='/request/user' element={<RequestComponent/>}/>
+      <Route path='/request/admin' element={<AdminRequestComponent/>}/>
       </Routes>
     </BrowserRouter>
     </AuthProvider>

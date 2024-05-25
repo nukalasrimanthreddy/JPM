@@ -9,11 +9,17 @@ function DashboardComponent() {
   const navigate = useNavigate();
   const [foods, setFoods] = useState([]);
   const  token  = localStorage.getItem('token')
+  const role = localStorage.getItem('role')
   const [invalidSession, setInvalidSession] = useState(false);
 
   useEffect(() => {
     if (token) {
-      fetchFoods();
+      if(role === 'user'){
+        fetchFoods();
+      }
+      else{
+        navigate('/admin');
+      }
     } else {
       setInvalidSession(true);
     }
@@ -41,11 +47,12 @@ function DashboardComponent() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDeleteRequest = async (food) => {
 
     try {
-      await axios.delete(`http://localhost:5000/food/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      alert('Food deleted successfully!');
+      const user = localStorage.getItem('user')
+      await axios.post(`http://localhost:5000/request/user`, {user, food},{ headers: { Authorization: `Bearer ${token}` } });
+      alert('Food delete Reqested successfully!');
     } catch (error) {
       console.error('Error deleting food:', error);
       alert('Failed to delete food. Please try again.');
@@ -88,7 +95,7 @@ function DashboardComponent() {
                     <td>{food.name}</td>
                     <td>{food.calories}</td>
                     <td>
-                      <button className='btn btn-danger' onClick={() => handleDelete(food._id)}>Delete</button>
+                      <button className='btn btn-danger' onClick={() => handleDeleteRequest(food._id)}>Request Delete</button>
                     </td>
                   </tr>
                 ))}

@@ -22,5 +22,8 @@ schema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+schema.methods.getId = async function(){
+    return this._id
+}
 const userModel = mongoose.model('user',schema)
 module.exports = userModel
